@@ -1,1 +1,3 @@
 https://github.com/progit/progit/blob/master/zh/03-git-branching/01-chapter3.markdown
+origin	ssh://git@github.com/fiestviva/ini.git (fetch)
+origin	ssh://git@github.com/fiestviva/ini.git (push)
