@@ -3,5 +3,7 @@ origin	ssh://git@github.com/fiestviva/ini.git (fetch)
 origin	ssh://git@github.com/fiestviva/ini.git (push)
 
 
+我要加东西et
+github挺不错哦
 我要加东西啦
 再家点东东
