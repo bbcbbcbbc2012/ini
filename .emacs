@@ -70,3 +70,52 @@
 ;(ac-config-default)
   ;; auto-complete-clang end
 ;;end
+
+
+;; for erlang
+(setq load-path (cons "/opt/local/lib/erlang/lib/tools-2.6.11/emacs" load-path))
+(setq erlang-root-dir "/opt/local/lib/erlang")
+(setq exec-path (cons "/opt/local/lib/erlang/bin" exec-path))
+(require 'erlang-start)
+
+;;  my c cpp style;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defconst my-c-indentation
+  '((c-tab-always-indent . t)
+    (c-comment-only-line-offset . 0)
+    (c-hanging-braces-alist . ((substatement-open after)
+			     (brace-list-open)))
+    (c-cleanup-list . (comment-close-slash
+		       compact-empty-funcall))
+    (c-offsets-alist . ((substatement-open . 0)
+			(innamespace . 0)
+			(case-label . +)
+			(access-label . -)
+			(inline-open . 0)
+			(block-open . 0)))
+;;(c-echo-syntactic-information-p t)
+  (setq comment-start "/*"
+	comment-end "*/")
+  (setq indent-tabs-mode nil))
+"my c coding style")
+
+(c-add-style "my-c-indentation" my-c-indentation)
+
+;;define own hook
+(defun my-c-common-hook-style()
+  (c-set-style "my-c-indentation")
+  (company-mode)
+  (setq indent-tabs-mode nil)
+  (setq global-hl-line-mode t)
+  (setq tab-width 4)
+  (setq c-basic-offset 4))
+
+;(add-hook 'c++-mode-hook 'MyCppHook)
+;(add-hook 'c-mode-hook 'MyCppHook)
+(add-hook 'c-mode-common-hook 'my-c-common-hook-style)
+;;;;;;end;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;cc mode config;;;;;;
+(defun my-make-CR-do-indent ()
+  (define-key c-mode-base-map "\C-m" 'c-context-line-break))
+(add-hook 'c-initialization-hook 'my-make-CR-do-indent)
+
+;;;;cc mode config end;;;;
