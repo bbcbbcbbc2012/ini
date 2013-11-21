@@ -10,6 +10,20 @@
 ;;默认使用utf-8编码
 (prefer-coding-system 'utf-8)
 
+;;高亮当前行
+;;(global-hl-line-mode t)
+
+;;size of file
+(size-indication-mode t)
+
+;;tool-bar-mode
+;;scroll-bar-mode
+(if (display-graphic-p)
+    (tool-bar-mode 0)
+    ;;(scroll-bar-mode 0)
+  )
+
+
 ;;el-get
 ;(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
@@ -119,3 +133,23 @@
 (add-hook 'c-initialization-hook 'my-make-CR-do-indent)
 
 ;;;;cc mode config end;;;;
+
+
+
+;; 刷新功能，重新打开当前文件，用于文件在外部被修改了的情况
+(global-set-key (kbd "<f5>") 'kid-reopen-file)
+(defun kid-reopen-file ()
+  "reopen current buffer"
+  (interactive)
+  (if (null (buffer-file-name (current-buffer)))
+      (message "buffer not attached to a file.")
+    (let ((file-name (buffer-file-name (current-buffer)))
+          (current-point (point)))
+      (kill-buffer (current-buffer))
+      (find-file file-name)
+      (if (<= current-point (point-max))
+          (goto-char current-point)))))
+
+
+;; org-mode 自动换行
+(add-hook 'org-mode-hook(lambda() (setq truncate-lines nil)))
